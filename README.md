@@ -4,7 +4,7 @@
 
 The application developed in this repository is part of the final year project that I'm currently undertaking at the University of Portsmouth.
 
-This web application will serve as the front-end for serving the needs of the user.
+This web application serves as the front-end for serving the needs of the user.
 
 #### Progress
 The current progress of the project can be seen at [my blog](http://richardsolomou.com/blog/final-year-project/).

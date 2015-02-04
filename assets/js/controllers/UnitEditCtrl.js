@@ -19,6 +19,11 @@ angular.module('atmos')
 					$location.path('/units');
 				};
 
+				$scope.delete = function (unit_id) {
+					UnitFactory.delete({ unit_id: unit_id });
+					$location.path('/units');
+				};
+
 				UnitFactory.show({ unit_id: $routeParams.unit_id }, function (data) {
 					$scope.unit = data.data;
 				}, function (err) {

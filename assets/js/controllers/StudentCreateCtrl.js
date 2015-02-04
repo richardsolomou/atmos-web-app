@@ -9,9 +9,13 @@ angular.module('atmos')
 			'$location',
 			'StudentsFactory',
 			function ($scope, $routeParams, $location, StudentsFactory) {
-				$scope.create = function () {
-					StudentsFactory.create($scope.student);
-					$location.path('/students');
+				$scope.create = function (isValid) {
+					if (isValid) {
+						StudentsFactory.create($scope.student);
+						$location.path('/students');
+					} else {
+						console.dir(isValid);
+					}
 				};
 			}
 		]

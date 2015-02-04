@@ -19,6 +19,11 @@ angular.module('atmos')
 					$location.path('/lecturers');
 				};
 
+				$scope.delete = function (lecturer_id) {
+					LecturerFactory.delete({ lecturer_id: lecturer_id });
+					$location.path('/lecturers');
+				};
+
 				LecturerFactory.show({ lecturer_id: $routeParams.lecturer_id }, function (data) {
 					$scope.lecturer = data.data;
 				}, function (err) {

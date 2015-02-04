@@ -19,6 +19,11 @@ angular.module('atmos')
 					$location.path('/sessions');
 				};
 
+				$scope.delete = function (session_id) {
+					SessionFactory.delete({ session_id: session_id });
+					$location.path('/sessions');
+				};
+
 				SessionFactory.show({ session_id: $routeParams.session_id }, function (data) {
 					$scope.session = data.data;
 				}, function (err) {

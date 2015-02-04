@@ -6,7 +6,7 @@ angular.module('atmos')
 		function ($resource) {
 			return $resource('api/v2/lecturers', {}, {
 				query: { method: 'GET' },
-				create: { method: 'POST' }
+				create: { method: 'POST', params: { lecturer_name: '@lecturer_name', lecturer_email: '@lecturer_email' } }
 			})
 		}
 	);

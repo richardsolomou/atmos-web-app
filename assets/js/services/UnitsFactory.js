@@ -6,7 +6,7 @@ angular.module('atmos')
 		function ($resource) {
 			return $resource('api/v2/units', {}, {
 				query: { method: 'GET' },
-				create: { method: 'POST' }
+				create: { method: 'POST', params: { unit_title: '@unit_title', unit_code: '@unit_code' } }
 			})
 		}
 	);

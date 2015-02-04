@@ -1,0 +1,192 @@
+body {
+	overflow-x: hidden;
+	margin-bottom: 71px;
+	color: #333;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+p {
+	font-size: 20px;
+}
+
+p.small {
+	font-size: 16px;
+}
+
+a, a:hover, a:focus, a:active, a.active {
+	outline: 0;
+	color: #59379E;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #888;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+	background-color: #59379E;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-transform: uppercase;
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 700;
+}
+
+.img-centered {
+	margin: 0 auto;
+}
+
+header {
+	text-align: center;
+	color: #fff;
+	background: #59379E;
+}
+
+header .container {
+	padding-top: 100px;
+	padding-bottom: 50px;
+	display: none;
+}
+
+header .intro-text .name {
+	display: block;
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 2em;
+	font-weight: 700;
+}
+
+header .intro-text .lead {
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 1.25em;
+	font-weight: 300;
+}
+
+@media(min-width:768px) {
+	header .container {
+		padding-top: 200px;
+		padding-bottom: 100px;
+		display: block;
+	}
+
+	header .intro-text .name {
+		font-size: 2.5em;
+	}
+
+	header .intro-text .lead {
+		font-size: 1.75em;
+	}
+}
+
+@media(min-width:768px) {
+	.navbar-fixed-top {
+		padding: 25px 0;
+		-webkit-transition: padding .3s;
+		-moz-transition: padding .3s;
+		transition: padding .3s;
+	}
+
+	.navbar-fixed-top .navbar-brand {
+		font-size: 2em;
+		-webkit-transition: all .3s;
+		-moz-transition: all .3s;
+		transition: all .3s;
+	}
+
+	.navbar-fixed-top.navbar-shrink {
+		padding: 10px 0;
+	}
+
+	.navbar-fixed-top.navbar-shrink .navbar-brand {
+		font-size: 1.5em;
+	}
+}
+
+.navbar {
+	text-transform: uppercase;
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 700;
+}
+
+.navbar a:focus {
+	outline: 0;
+}
+
+.navbar .navbar-nav {
+	letter-spacing: 1px;
+}
+
+.navbar .navbar-nav li a:focus {
+	outline: 0;
+}
+
+.navbar-default,
+.navbar-inverse {
+	background-color: #333;
+	border: 0;
+}
+
+section {
+	padding: 50px 0;
+}
+
+section h2 {
+	margin: 0;
+	font-size: 3em;
+}
+
+section.success {
+	color: #fff;
+	background: #59379E;
+}
+
+section.noheader {
+	margin-top: 7em;
+}
+
+@media(max-width:767px) {
+	section {
+		padding: 75px 0;
+		margin-top: 0;
+	}
+}
+
+.btn-outline {
+	margin-top: 15px;
+	border: solid 2px #fff;
+	font-size: 20px;
+	color: #fff;
+	background: 0 0;
+	transition: all .3s ease-in-out;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+	border: solid 2px #fff;
+	color: #59379E;
+	background: #fff;
+}
+
+footer {
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	height: 71px;
+	width: 100%;
+}
+
+footer .footer-below {
+	padding: 25px 0;
+	background-color: #222;
+}
+
+.btn:focus,
+.btn:active,
+.btn.active {
+	outline: 0;
+}

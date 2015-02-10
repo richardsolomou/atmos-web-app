@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<h2>Lecturers</h2>
+		<hr class="star-primary">
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">Update Lecturer</div>
+			<div class="panel-body">
+				<form name="updateForm" class="form-horizontal" data-ng-submit="update(updateForm.$valid)" novalidate>
+					<div class="form-group">
+						<label for="lecturer_id" class="col-sm-2 control-label">ID</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" name="lecturer_id" id="lecturer_id" data-ng-model="lecturer.lecturer_id" disabled />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lecturer_name" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="lecturer_name" id="lecturer_name" data-ng-model="lecturer.lecturer_name" required />
+							<span data-ng-show="updateForm.lecturer_name.$invalid && !updateForm.lecturer_name.$pristine" class="help-block">Name is required</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lecturer_email" class="col-sm-2 control-label">E-mail Address</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" name="lecturer_email" id="lecturer_email" data-ng-model="lecturer.lecturer_email" required />
+							<span data-ng-show="updateForm.lecturer_email.$invalid && !updateForm.lecturer_email.$pristine" class="help-block">E-mail must be a valid e-mail address</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary" data-ng-disabled="updateForm.$invalid">Submit</button>
+							<button type="button" class="btn btn-default" data-ng-click="cancel()">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Actions</div>
+			<div class="panel-body">
+				<button type="button" class="btn btn-default" data-ng-show="confirm == 1" data-ng-click="confirm = 0">Abort Deletion</button>
+				<button type="button" class="btn btn-danger" data-ng-show="confirm == 1" data-ng-click="delete(lecturer.lecturer_id)">Delete</button>
+				<button type="button" class="btn btn-danger" data-ng-hide="confirm == 1" data-ng-click="confirm = 1">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -5,10 +5,13 @@ angular.module('atmos')
 		'LecturerListCtrl',
 		[
 			'$scope',
-			'$http',
+			'$rootScope',
 			'$location',
-			'LecturersFactory',
-			function ($scope, $http, $location, LecturersFactory) {
+			'Lecturer',
+			'messageCenterService',
+			function ($scope, $rootScope, $location, Lecturer, messageCenterService) {
+				$rootScope.currentPage = 'lecturers';
+
 				$scope.update = function (lecturer_id) {
 					$location.path('/lecturers/' + lecturer_id);
 				};
@@ -17,10 +20,10 @@ angular.module('atmos')
 					$location.path('/lecturers/create');
 				};
 
-				LecturersFactory.query(function (data) {
+				Lecturer.query(function (data) {
 					$scope.lecturers = data.data;
-				}, function (err) {
-					console.log(err);
+				}, function (error) {
+					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
 				});
 			}
 		]

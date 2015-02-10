@@ -5,10 +5,13 @@ angular.module('atmos')
 		'StudentListCtrl',
 		[
 			'$scope',
-			'$http',
+			'$rootScope',
 			'$location',
-			'StudentsFactory',
-			function ($scope, $http, $location, StudentsFactory) {
+			'Student',
+			'messageCenterService',
+			function ($scope, $rootScope, $location, Student, messageCenterService) {
+				$rootScope.currentPage = 'students';
+
 				$scope.update = function (student_id) {
 					$location.path('/students/' + student_id);
 				};
@@ -17,10 +20,10 @@ angular.module('atmos')
 					$location.path('/students/create');
 				};
 
-				StudentsFactory.query(function (data) {
+				Student.query(function (data) {
 					$scope.students = data.data;
-				}, function (err) {
-					console.log(err);
+				}, function (error) {
+					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
 				});
 			}
 		]

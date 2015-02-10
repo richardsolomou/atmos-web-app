@@ -6,14 +6,14 @@ $('body').scrollspy({
 })
 
 // Closes the Responsive Menu on Menu Item Click
-$('.navbar-collapse ul li a').click(function() {
+$(document).on('click', '.navbar-collapse ul li a', function (e) {
 	$('.navbar-toggle:visible').click();
 });
 
-function getSerialNumber(str) {
+// Routes requests from outside of AngularJS.
+function requestRouter(router, data) {
 	var bodyElm = angular.element('body');
 	if (bodyElm.scope && typeof bodyElm.scope === "function") {
-		var scope = bodyElm.scope();
-		scope.$emit('JavaRouter', { str: str });
+		bodyElm.scope().$emit(router, data);
 	}
 }

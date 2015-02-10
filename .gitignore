@@ -1,7 +1,11 @@
+# Bower
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+
 # SFTP configuration
 sftp-config.json
-
-# Created by https://www.gitignore.io
 
 ### Node ###
 # Logs

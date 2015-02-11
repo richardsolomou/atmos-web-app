@@ -3,7 +3,7 @@
 angular.module('atmos')
 	.factory(
 		'RFIDService',
-		function ($http, $q, $filter) {
+		function ($http, $q, $filter, Student, Unit) {
 			var student_id;
 			var session_id;
 			var attendance_recorded;
@@ -16,35 +16,31 @@ angular.module('atmos')
 				async.series(
 					[
 						function (done) {
-							$http.get('api/v2/students/student_card/' + uid)
-								.success(function (data) {
-									student_id = data.data.student_id;
-									return done();
-								}).error(function (err) {
-									err = new Error('Student card not in database.');
-									err.err_type = 'student_card_not_found';
-									return done(err);
-								});
+							Student.findByCard({ student_card: uid }, function (data) {
+								student_id = data.data.student_id;
+								return done();
+							}, function (err) {
+								err = new Error('Student card not in database.');
+								err.err_type = 'student_card_not_found';
+								return done(err);
+							});
 						},
 						function (done) {
-							$http.get('api/v2/students/' + student_id + '/units')
-								.success(function (data) {
-									units = data.data;
-									return done();
-								}).error(done);
+							Student.units({ student_id: student_id }, function (data) {
+								units = data.data;
+								return done();
+							}, done);
 						},
 						function (done) {
 							angular.forEach(units, function (unit) {
-								$http.get('api/v2/units/' + unit.unit_id + '/sessions')
-									.success(function (data) {
-										sessions = data.data;
-										return done();
-									}).error(done);
+								Unit.sessions({ unit_id: unit.unit_id }, function (data) {
+									sessions = data.data;
+									return done();
+								}, done);
 							});
 						},
 						function (done) {
 							angular.forEach(sessions, function (session, key) {
-								attendance_recorded = '2015-02-02 10:05';
 								attendance_recorded = $filter('date')(attendance_recorded, 'yyyy-MM-dd HH:mm');
 								session.session_from = $filter('date')(session.session_from, 'yyyy-MM-dd HH:mm');
 								session.session_to = $filter('date')(session.session_to, 'yyyy-MM-dd HH:mm');
@@ -52,7 +48,7 @@ angular.module('atmos')
 									session_id = session.session_id;
 									return done();
 								} else if (sessions.length-1 === key) {
-									err = new Error('Session not found.');
+									var err = new Error('Session not found.');
 									err.err_type = 'session_not_found';
 									return done(err);
 								}
@@ -71,17 +67,23 @@ angular.module('atmos')
 				return deferred.promise;
 			}
 
+			function getStudentID() {
+				return student_id;
+			}
+
+			function getSessionID() {
+				return session_id;
+			}
+
+			function getAttendanceRecorded() {
+				return attendance_recorded;
+			}
+
 			return {
 				init: init,
-				getStudentID: function () {
-					return student_id;
-				},
-				getSessionID: function () {
-					return session_id;
-				},
-				getAttendanceRecorded: function () {
-					return attendance_recorded;
-				}
+				getStudentID: getStudentID,
+				getSessionID: getSessionID,
+				getAttendanceRecorded: getAttendanceRecorded
 			};
 		}
 	);

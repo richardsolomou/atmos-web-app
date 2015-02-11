@@ -10,7 +10,7 @@ angular.module('atmos')
 			'$filter',
 			'Session',
 			function ($scope, $rootScope, $location, $filter, Session) {
-				$scope.edit = function (session_id) {
+				$scope.update = function (session_id) {
 					$location.path('/sessions/' + session_id);
 				};
 

@@ -7,13 +7,10 @@ angular.module('atmos')
 			'$scope',
 			'$rootScope',
 			'$location',
-			'Session',
-			'messageCenterService',
 			'$filter',
-			function ($scope, $rootScope, $location, Session, messageCenterService, $filter) {
-				$rootScope.currentPage = 'sessions';
-
-				$scope.update = function (session_id) {
+			'Session',
+			function ($scope, $rootScope, $location, $filter, Session) {
+				$scope.edit = function (session_id) {
 					$location.path('/sessions/' + session_id);
 				};
 
@@ -21,17 +18,19 @@ angular.module('atmos')
 					$location.path('/sessions/create');
 				};
 
-				console.dir(Session.alternatives({ session_id: 1 }));
+				function init() {
+					$rootScope.currentPage = 'sessions';
 
-				Session.query(function (data) {
-					$scope.sessions = data.data;
-					angular.forEach($scope.sessions, function (session) {
-						session.session_from = $filter('date')(session.session_from, 'yyyy-MM-dd HH:mm');
-						session.session_Bto = $filter('date')(session.session_to, 'yyyy-MM-dd HH:mm');
+					Session.query(function (data) {
+						$scope.sessions = data.data;
+						angular.forEach($scope.sessions, function (session) {
+							session.session_from = $filter('date')(session.session_from, 'HH:mm dd/MM/yyyy');
+							session.session_to = $filter('date')(session.session_to, 'HH:mm dd/MM/yyyy');
+						});
 					});
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				}
+
+				init();
 			}
 		]
 	);

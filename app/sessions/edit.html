@@ -54,7 +54,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-primary" data-ng-disabled="updateForm.$invalid">Submit</button>
-							<button class="btn btn-default" data-ng-click="cancel()">Cancel</button>
+							<button type="button" class="btn btn-default" data-ng-click="cancel()">Cancel</button>
 						</div>
 					</div>
 				</form>
@@ -68,6 +68,78 @@
 				<button type="button" class="btn btn-default" data-ng-show="confirm == 1" data-ng-click="confirm = 0">Abort Deletion</button>
 				<button type="button" class="btn btn-danger" data-ng-show="confirm == 1" data-ng-click="delete(session.session_id)">Delete</button>
 				<button type="button" class="btn btn-danger" data-ng-hide="confirm == 1" data-ng-click="confirm = 1">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" data-ng-if="alternatives.length">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Current Alternative Sessions</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover" datatable>
+					<thead>
+						<tr>
+							<th style="width: 32px;">ID</th>
+							<th>Name</th>
+							<th>Unit</th>
+							<th>Room</th>
+							<th>From</th>
+							<th>To</th>
+							<th style="width: 69px;">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="alternative in alternatives">
+							<td>{{ alternative.session_id }}</td>
+							<td>{{ alternative.session_name }}</td>
+							<td><a data-ng-href="./#/units/{{ alternative.unit_id.unit_id }}" class="btn btn-default btn-xs">{{ alternative.unit_id.unit_code }}</a></td>
+							<td>{{ alternative.session_room }}</td>
+							<td>{{ alternative.session_from }}</td>
+							<td>{{ alternative.session_to }}</td>
+							<td class="text-center">
+								<button data-ng-click="edit(alternative.session_id)" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button>
+								<button data-ng-click="removeAlternative(alternative.alternativesession_id)" class="btn btn-warning btn-sm"><i class="fa fa-times"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" data-ng-if="availableAlternatives.length">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Available Alternative Sessions</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover" datatable>
+					<thead>
+						<tr>
+							<th style="width: 32px;">ID</th>
+							<th>Name</th>
+							<th>Unit</th>
+							<th>Room</th>
+							<th>From</th>
+							<th>To</th>
+							<th style="width: 69px;">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="available in availableAlternatives">
+							<td>{{ available.session_id }}</td>
+							<td>{{ available.session_name }}</td>
+							<td><a data-ng-href="./#/units/{{ available.unit_id.unit_id }}" class="btn btn-default btn-xs">{{ available.unit_id.unit_code }}</a></td>
+							<td>{{ available.session_room }}</td>
+							<td>{{ available.session_from }}</td>
+							<td>{{ available.session_to }}</td>
+							<td class="text-center">
+								<button data-ng-click="edit(available.session_id)" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button>
+								<button data-ng-click="setAlternative(session.session_id, available.session_id)" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

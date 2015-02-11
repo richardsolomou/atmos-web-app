@@ -14,6 +14,9 @@
 					<th style="width: 32px;">ID</th>
 					<th>Name</th>
 					<th>Unit</th>
+					<th>Room</th>
+					<th>From</th>
+					<th>To</th>
 					<th style="width: 69px;">Actions</th>
 				</tr>
 			</thead>
@@ -22,7 +25,10 @@
 					<td>{{ session.session_id }}</td>
 					<td>{{ session.session_name }}</td>
 					<td><a data-ng-href="./#/units/{{ session.unit_id.unit_id }}" class="btn btn-default btn-xs">{{ session.unit_id.unit_code }}</a></td>
-					<td class="text-center"><button data-ng-click="update(session.session_id)" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button></td>
+					<td>{{ session.session_room }}</td>
+					<td>{{ session.session_from }}</td>
+					<td>{{ session.session_to }}</td>
+					<td class="text-center"><button data-ng-click="edit(session.session_id)" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button></td>
 				</tr>
 			</tbody>
 		</table>

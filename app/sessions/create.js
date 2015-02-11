@@ -7,10 +7,11 @@ angular.module('atmos')
 			'$scope',
 			'$rootScope',
 			'$location',
+			'$filter',
 			'Session',
 			'Unit',
 			'messageCenterService',
-			function ($scope, $rootScope, $location, Session, Unit, messageCenterService) {
+			function ($scope, $rootScope, $location, $filter, Session, Unit, messageCenterService) {
 				$scope.create = function (isValid) {
 					if (isValid) {
 						$scope.session.session_from = $filter('date')($scope.session.session_from, 'yyyy-MM-dd HH:mm');

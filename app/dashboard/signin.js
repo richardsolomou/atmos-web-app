@@ -3,7 +3,7 @@
 angular.module('atmos')
 	.factory(
 		'SignInService',
-		function ($http, $cookies, $cookieStore, GooglePlus, messageCenterService) {
+		function ($http, $cookies, $cookieStore, GooglePlus, messageCenterService, Lecturer) {
 			var userInfo;
 
 			function signIn(user) {
@@ -12,21 +12,19 @@ angular.module('atmos')
 					messageCenterService.add('danger', 'Hosted domain must be port.ac.uk.');
 					return false;
 				}
-				$http.get('api/v2/lecturers')
-					.success(function (lecturers) {
-						for (var i = 0; i < lecturers.data.length; i++) {
-							if (user.email === lecturers.data[i].lecturer_email) {
-								lecturers.data[i].result = user;
-								userInfo = lecturers.data[i];
-								$cookieStore.put('user', userInfo);
-								return true;
-							}
+				Lecturer.query(function (data) {
+					var lecturers = data.data;
+					angular.forEach(lecturers, function (lecturer, key) {
+						if (user.email === lecturer.lecturer_email) {
+							lecturer.result = user;
+							userInfo = lecturer;
+							$cookieStore.put('user', userInfo);
+							return true;
+						} else if (lecturers.length-1 === key) {
+							messageCenterService.add('danger', 'Lecturer not found in database.');
 						}
-						messageCenterService.add('danger', 'Lecturer not found in database.');
-					})
-					.error(function (data) {
-						messageCenterService.add('danger', 'Something went wrong.');
 					});
+				});
 				return false;
 			}
 
@@ -36,13 +34,13 @@ angular.module('atmos')
 				return true;
 			}
 
-			function _init() {
+			function init() {
 				if ($cookies.user) {
 					userInfo = JSON.parse($cookies.user);
 				}
 			}
 
-			_init();
+			init();
 
 			return {
 				signIn: signIn,

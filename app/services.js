@@ -5,8 +5,8 @@ angular.module('atmos')
 		'Attendance',
 		function ($resource) {
 			return $resource('api/v2/attendance/:attendance_id', { attendance_id: '@attendance_id' }, {
-				get: { method: 'GET', params: { attendance_id: '@attendance_id' } },
-				query: { method: 'GET' },
+				get: { method: 'GET', params: { attendance_id: '@attendance_id', populate: 'student_id,session_id' } },
+				query: { method: 'GET', params: { populate: 'student_id,session_id' } },
 				create: { method: 'POST', params: { student_id: '@student_id', session_id: '@session_id', attendance_recorded: '@attendance_recorded' } },
 				update: { method: 'PUT', params: { attendance_id: '@attendance_id', student_id: '@student_id', session_id: '@session_id', attendance_recorded: '@attendance_recorded' } },
 				delete: { method: 'DELETE', params: { attendance_id: '@attendance_id' } }

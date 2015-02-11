@@ -33,12 +33,14 @@ angular.module('atmos')
 						$location.path('/attendance');
 
 						RFIDService.init(data.uid).then(function () {
-							var attendance = new Attendance();
-							attendance.student_id = RFIDService.getStudentID();
-							attendance.session_id = RFIDService.getSessionID();
-							attendance.attendance_recorded = RFIDService.getAttendanceRecorded();
-							attendance.$create();
-							console.dir(attendance);
+							var student_id = RFIDService.getStudentID();
+							var session_id = RFIDService.getSessionID();
+							var attendance_recorded = RFIDService.getAttendanceRecorded();
+							Attendance.create({ student_id: student_id, session_id: session_id, attendance_recorded: attendance_recorded }, function (data) {
+								console.dir(data);
+							}, function (err) {
+								console.dir(err);
+							});
 						}, function (err) {
 							console.dir(err);
 							if (err.err_type === 'student_card_not_found') {
@@ -48,7 +50,7 @@ angular.module('atmos')
 							}
 						});
 
-						$route.reload();
+						if (!$rootScope.$$phase) $rootScope.$apply();
 					}
 				});
 

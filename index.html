@@ -7,8 +7,7 @@
 	<title>ATMOS</title>
 	<base href="/atmos/">
 	<link rel="icon" href="./assets/img/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Montserrat:400,700">
 	<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./bower_components/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./assets/css/dataTables.bootstrap.css">
@@ -41,7 +40,9 @@
 	<script src="./app/global.js"></script>
 	<script src="./app/services.js"></script>
 	<!-- Components -->
-	<script src="./app/attendance/attendance.js"></script>
+	<script src="./app/attendance/create.js"></script>
+	<script src="./app/attendance/edit.js"></script>
+	<script src="./app/attendance/list.js"></script>
 	<script src="./app/attendance/rfid.js"></script>
 	<script src="./app/dashboard/dashboard.js"></script>
 	<script src="./app/dashboard/signin.js"></script>
@@ -78,6 +79,7 @@
 					<li><a data-ng-click="signin()" class="google-plus">Sign In</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" data-ng-show="!checkLoggedIn()">
+					<li data-ng-class="{ 'active' : currentPage === 'attendance' }" data-ng-click="currentPage = 'attendance'"><a href="./#/attendance">Attendance</a></li>
 					<li data-ng-class="{ 'active' : currentPage === 'students' }" data-ng-click="currentPage = 'students'"><a href="./#/students">Students</a></li>
 					<li data-ng-class="{ 'active' : currentPage === 'units' }" data-ng-click="currentPage = 'units'"><a href="./#/units">Units</a></li>
 					<li data-ng-class="{ 'active' : currentPage === 'sessions' }" data-ng-click="currentPage = 'sessions'"><a href="./#/sessions">Sessions</a></li>

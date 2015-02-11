@@ -25,13 +25,25 @@ angular.module('atmos')
 						templateUrl: 'app/home/home.html',
 						controller: 'HomeCtrl'
 					})
-					.when('/signin', {
-						templateUrl: 'app/dashboard/signin.html',
-						controller: 'SignInCtrl'
+					.when('/attendance', {
+						templateUrl: 'app/attendance/list.html',
+						controller: 'AttendanceListCtrl'
+					})
+					.when('/attendance/create', {
+						templateUrl: 'app/attendance/create.html',
+						controller: 'AttendanceCreateCtrl'
+					})
+					.when('/attendance/:attendance_id', {
+						templateUrl: 'app/attendance/edit.html',
+						controller: 'AttendanceEditCtrl'
 					})
 					.when('/dashboard', {
 						templateUrl: 'app/dashboard/dashboard.html',
 						controller: 'DashboardCtrl'
+					})
+					.when('/signin', {
+						templateUrl: 'app/dashboard/signin.html',
+						controller: 'SignInCtrl'
 					})
 					.when('/lecturers', {
 						templateUrl: 'app/lecturers/list.html',

@@ -8,10 +8,7 @@ angular.module('atmos')
 			'$rootScope',
 			'$location',
 			'Unit',
-			'messageCenterService',
-			function ($scope, $rootScope, $location, Unit, messageCenterService) {
-				$rootScope.currentPage = 'units';
-
+			function ($scope, $rootScope, $location, Unit) {
 				$scope.update = function (unit_id) {
 					$location.path('/units/' + unit_id);
 				};
@@ -20,11 +17,15 @@ angular.module('atmos')
 					$location.path('/units/create');
 				};
 
-				Unit.query(function (data) {
-					$scope.units = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'units';
+
+					Unit.query(function (data) {
+						$scope.units = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

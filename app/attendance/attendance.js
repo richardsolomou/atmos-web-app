@@ -4,10 +4,13 @@ angular.module('atmos')
 	.controller(
 		'AttendanceCtrl',
 		[
-			'$scope',
 			'$rootScope',
-			function ($scope, $rootScope) {
-				$rootScope.currentPage = 'attendance';
+			function ($rootScope) {
+				function init() {
+					$rootScope.currentPage = 'attendance';
+				}
+
+				init();
 			}
 		]
 	);

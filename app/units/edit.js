@@ -11,8 +11,6 @@ angular.module('atmos')
 			'Unit',
 			'messageCenterService',
 			function ($scope, $rootScope, $routeParams, $location, Unit, messageCenterService) {
-				$rootScope.currentPage = 'units';
-
 				$scope.update = function (isValid) {
 					if (isValid) {
 						Unit.update($scope.unit, function (data) {
@@ -37,11 +35,15 @@ angular.module('atmos')
 					});
 				};
 
-				Unit.get({ unit_id: $routeParams.unit_id }, function (data) {
-					$scope.unit = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'units';
+
+					Unit.get({ unit_id: $routeParams.unit_id }, function (data) {
+						$scope.unit = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

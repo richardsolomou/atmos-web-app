@@ -11,8 +11,6 @@ angular.module('atmos')
 			'Lecturer',
 			'messageCenterService',
 			function ($scope, $rootScope, $routeParams, $location, Lecturer, messageCenterService) {
-				$rootScope.currentPage = 'lecturers';
-				
 				$scope.update = function (isValid) {
 					if (isValid) {
 						Lecturer.update($scope.lecturer, function (data) {
@@ -37,11 +35,15 @@ angular.module('atmos')
 					});
 				};
 
-				Lecturer.get({ lecturer_id: $routeParams.lecturer_id }, function (data) {
-					$scope.lecturer = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'lecturers';
+					
+					Lecturer.get({ lecturer_id: $routeParams.lecturer_id }, function (data) {
+						$scope.lecturer = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

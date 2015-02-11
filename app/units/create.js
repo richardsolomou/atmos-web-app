@@ -10,8 +10,6 @@ angular.module('atmos')
 			'Unit',
 			'messageCenterService',
 			function ($scope, $rootScope, $location, Unit, messageCenterService) {
-				$rootScope.currentPage = 'units';
-
 				$scope.create = function (isValid) {
 					if (isValid) {
 						Unit.create($scope.unit, function (data) {
@@ -26,6 +24,12 @@ angular.module('atmos')
 				$scope.cancel = function () {
 					$location.path('/units');
 				};
+
+				function init() {
+					$rootScope.currentPage = 'units';
+				}
+
+				init();
 			}
 		]
 	);

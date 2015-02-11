@@ -11,8 +11,6 @@ angular.module('atmos')
 			'Student',
 			'messageCenterService',
 			function ($scope, $rootScope, $routeParams, $location, Student, messageCenterService) {
-				$rootScope.currentPage = 'students';
-
 				$scope.update = function (isValid) {
 					if (isValid) {
 						Student.update($scope.student, function (data) {
@@ -37,11 +35,15 @@ angular.module('atmos')
 					});
 				};
 
-				Student.get({ student_id: $routeParams.student_id }, function (data) {
-					$scope.student = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'students';
+					
+					Student.get({ student_id: $routeParams.student_id }, function (data) {
+						$scope.student = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

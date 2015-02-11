@@ -10,8 +10,6 @@ angular.module('atmos')
 			'Student',
 			'messageCenterService',
 			function ($scope, $rootScope, $location, Student, messageCenterService) {
-				$rootScope.currentPage = 'students';
-
 				$scope.create = function (isValid) {
 					if (isValid) {
 						Student.create($scope.student, function (data) {
@@ -26,6 +24,12 @@ angular.module('atmos')
 				$scope.cancel = function () {
 					$location.path('/students');
 				};
+
+				function init() {
+					$rootScope.currentPage = 'students';
+				}
+
+				init();
 			}
 		]
 	);

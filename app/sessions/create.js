@@ -8,18 +8,18 @@ angular.module('atmos')
 			'$rootScope',
 			'$location',
 			'Session',
-			'UnitsFactory',
+			'Unit',
 			'messageCenterService',
-			function ($scope, $rootScope, $location, Session, UnitsFactory, messageCenterService) {
-				$rootScope.currentPage = 'sessions';
-
+			function ($scope, $rootScope, $location, Session, Unit, messageCenterService) {
 				$scope.create = function (isValid) {
 					if (isValid) {
+						$scope.session.session_from = $filter('date')($scope.session.session_from, 'yyyy-MM-dd HH:mm');
+						$scope.session.session_to = $filter('date')($scope.session.session_to, 'yyyy-MM-dd HH:mm');
 						Session.create($scope.session, function (data) {
 							messageCenterService.add('success', 'Successfully created session.', { status: messageCenterService.status.next });
 							$location.path('/sessions');
 						}, function (error) {
-							messageCenterService.add('danger', error, { status: messageCenterService.status.next });
+							messageCenterService.add('danger', error);
 						});
 					}
 				};
@@ -28,11 +28,15 @@ angular.module('atmos')
 					$location.path('/sessions');
 				};
 
-				UnitsFactory.query(function (data) {
-					$scope.units = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'sessions';
+					
+					Unit.query(function (data) {
+						$scope.units = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

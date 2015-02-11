@@ -11,12 +11,12 @@ angular.module('atmos')
 			'RFIDService',
 			'messageCenterService',
 			function ($scope, $rootScope, $location, Student, RFIDService, messageCenterService) {
-				$rootScope.init = function () {
+				function init() {
 					$rootScope.currentPage = 'students';
 					$scope.student = RFIDService.getStudentID();
 				}
 
-				$rootScope.init();
+				init();
 			}
 		]
 	);

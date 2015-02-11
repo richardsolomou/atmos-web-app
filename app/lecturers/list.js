@@ -8,10 +8,7 @@ angular.module('atmos')
 			'$rootScope',
 			'$location',
 			'Lecturer',
-			'messageCenterService',
-			function ($scope, $rootScope, $location, Lecturer, messageCenterService) {
-				$rootScope.currentPage = 'lecturers';
-
+			function ($scope, $rootScope, $location, Lecturer) {
 				$scope.update = function (lecturer_id) {
 					$location.path('/lecturers/' + lecturer_id);
 				};
@@ -20,11 +17,15 @@ angular.module('atmos')
 					$location.path('/lecturers/create');
 				};
 
-				Lecturer.query(function (data) {
-					$scope.lecturers = data.data;
-				}, function (error) {
-					messageCenterService.add('danger', error, { status: messageCenterService.status.next });
-				});
+				function init() {
+					$rootScope.currentPage = 'lecturers';
+
+					Lecturer.query(function (data) {
+						$scope.lecturers = data.data;
+					});
+				}
+
+				init();
 			}
 		]
 	);

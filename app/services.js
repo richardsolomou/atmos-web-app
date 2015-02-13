@@ -5,7 +5,7 @@ angular.module('atmos')
 		'Attendance',
 		function ($resource) {
 			return $resource('api/v2/attendance/:attendance_id', { attendance_id: '@attendance_id' }, {
-				get: { method: 'GET', params: { attendance_id: '@attendance_id', populate: 'student_id,session_id' } },
+				get: { method: 'GET', params: { attendance_id: '@attendance_id' } },
 				query: { method: 'GET', params: { populate: 'student_id,session_id' } },
 				create: { method: 'POST', params: { student_id: '@student_id', session_id: '@session_id', attendance_recorded: '@attendance_recorded' } },
 				update: { method: 'PUT', params: { attendance_id: '@attendance_id', student_id: '@student_id', session_id: '@session_id', attendance_recorded: '@attendance_recorded' } },
@@ -37,7 +37,8 @@ angular.module('atmos')
 				getAlternatives: { method: 'GET', url: 'api/v2/sessions/:session_id/alternatives', params: { session_id: '@session_id', populate: 'unit_id' } },
 				getAvailableAlternatives: { method: 'GET', url: 'api/v2/sessions/:session_id/alternatives/available', params: { session_id: '@session_id', populate: 'unit_id' } },
 				setAlternative: { method: 'POST', url: 'api/v2/sessions/alternatives', params: { primary_session_id: '@primary_session_id', secondary_session_id: '@secondary_session_id' } },
-				removeAlternative: { method: 'DELETE', url: 'api/v2/sessions/alternatives/:alternativesession_id', params: { alternativesession_id: '@alternativesession_id' } }
+				removeAlternative: { method: 'DELETE', url: 'api/v2/sessions/alternatives/:alternativesession_id', params: { alternativesession_id: '@alternativesession_id' } },
+				getStudents: { method: 'GET', url: 'api/v2/sessions/:session_id/students', params: { session_id: '@session_id' } }
 			});
 		}
 	)

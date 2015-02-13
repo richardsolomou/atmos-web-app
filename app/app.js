@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('atmos', ['ngRoute', 'ngResource', 'ngCookies', 'MessageCenterModule', 'googleplus', 'datatables']);
+angular.module('atmos', ['ngRoute', 'ngResource', 'ngCookies', 'ngSanitize', 'MessageCenterModule', 'googleplus', 'datatables', 'MassAutoComplete']);
 
 angular.module('atmos')
 	.run(

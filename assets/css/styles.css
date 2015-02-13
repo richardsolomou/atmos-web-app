@@ -200,6 +200,10 @@ section h2 {
 	font-size: 3em;
 }
 
+.ac-container p {
+	margin: 5px;
+}
+
 @media(max-width:767px) {
 	section {
 		padding: 75px 0;

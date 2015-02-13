@@ -2,26 +2,26 @@
 
 angular.module('atmos')
 	.controller(
-		'AttendanceCreateCtrl',
+		'AttendanceEditCtrl',
 		[
 			'$scope',
 			'$sce',
 			'$rootScope',
+			'$routeParams',
 			'$location',
 			'$filter',
 			'Attendance',
 			'Student',
 			'Session',
 			'messageCenterService',
-			function ($scope, $sce, $rootScope, $location, $filter, Attendance, Student, Session, messageCenterService) {
-				$scope.create = function (isValid) {
+			function ($scope, $sce, $rootScope, $routeParams, $location, $filter, Attendance, Student, Session, messageCenterService) {
+				$scope.update = function (isValid) {
 					if (isValid) {
-						$scope.attendance.attendance_recorded = $filter('date')($scope.attendance.attendance_recorded, 'yyyy-MM-dd HH:mm');
-						Attendance.create($scope.attendance, function (data) {
-							messageCenterService.add('success', 'Successfully created attendance record.', { status: messageCenterService.status.next });
+						Attendance.update($scope.attendance, function (data) {
+							messageCenterService.add('success', 'Successfully updated attendance record.', { status: messageCenterService.status.next });
 							$location.path('/attendance');
 						}, function (error) {
-							messageCenterService.add('danger', error);
+							messageCenterService.add('danger', error, { status: messageCenterService.status.next });
 						});
 					}
 				};
@@ -30,11 +30,22 @@ angular.module('atmos')
 					$location.path('/attendance');
 				};
 
+				$scope.delete = function (attendance_id) {
+					Attendance.delete({ attendance_id: attendance_id }, function (data) {
+						messageCenterService.add('success', 'Successfully deleted attendance record.', { status: messageCenterService.status.next });
+						$location.path('/attendance');
+					}, function (error) {
+						messageCenterService.add('danger', error, { status: messageCenterService.status.next });
+					});
+				};
+
 				function init() {
 					$rootScope.currentPage = 'attendance';
-
-					$scope.attendance = {};
-					$scope.attendance.attendance_recorded = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm');
+					
+					Attendance.get({ attendance_id: $routeParams.attendance_id }, function (data) {
+						$scope.attendance = data.data;
+						$scope.attendance.attendance_recorded = $filter('date')($scope.attendance.attendance_recorded, 'yyyy-MM-dd HH:mm');
+					});
 
 					Student.query(function (data) {
 						$scope.students = data.data;

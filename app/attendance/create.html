@@ -13,17 +13,19 @@
 					<div class="form-group">
 						<label for="student_id" class="col-sm-2 control-label">Student</label>
 						<div class="col-sm-10">
-							<select class="form-control" name="student_id" id="student_id" data-ng-model="attendance.student_id" data-ng-options="student.student_id as student.student_name for student in students" required />
-							</select>
-							<span data-ng-show="createForm.student_id.$invalid && !createForm.student_id.$pristine" class="help-block">Student must be a valid student_id</span>
+							<div mass-autocomplete>
+								<input type="text" class="form-control" name="student_id" id="student_id" data-ng-model="attendance.student_id" mass-autocomplete-item="ao_student_id" required />
+							</div>
+							<span data-ng-show="createForm.student_id.$invalid && !createForm.student_id.$pristine" class="help-block">Student must be a valid student</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="session_id" class="col-sm-2 control-label">Session</label>
 						<div class="col-sm-10">
-							<select class="form-control" name="session_id" id="session_id" data-ng-model="attendance.session_id" data-ng-options="session.session_id as session.session_name for session in sessions" required />
-							</select>
-							<span data-ng-show="createForm.session_id.$invalid && !createForm.session_id.$pristine" class="help-block">Session must be a valid session_id</span>
+							<div mass-autocomplete>
+								<input type="text" class="form-control" name="session_id" id="session_id" data-ng-model="attendance.session_id" mass-autocomplete-item="ao_session_id" required />
+							</div>
+							<span data-ng-show="createForm.session_id.$invalid && !createForm.session_id.$pristine" class="help-block">Session must be a valid session</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -36,7 +38,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-primary" data-ng-disabled="createForm.$invalid">Submit</button>
-							<button class="btn btn-default" data-ng-click="cancel()">Cancel</button>
+							<button type="button" class="btn btn-default" data-ng-click="cancel()">Cancel</button>
 						</div>
 					</div>
 				</form>

@@ -24,8 +24,8 @@ angular.module('atmos')
 					Session.query(function (data) {
 						$scope.sessions = data.data;
 						angular.forEach($scope.sessions, function (session) {
-							session.session_from = $filter('date')(session.session_from, 'HH:mm dd/MM/yyyy');
-							session.session_to = $filter('date')(session.session_to, 'HH:mm dd/MM/yyyy');
+							session.session_from = $filter('date')(session.session_from, 'HH:mm');
+							session.session_to = $filter('date')(session.session_to, 'HH:mm, dd/MM/yyyy');
 						});
 					});
 				}

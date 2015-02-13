@@ -34,21 +34,22 @@
 					<div class="form-group">
 						<label for="session_from" class="col-sm-2 control-label">From</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="session_from" id="session_from" data-ng-model="session.session_from" />
+							<input type="text" class="form-control" name="session_from" id="session_from" data-ng-model="session.session_from" placeholder="yyyy-MM-dd HH:mm" required />
 							<span data-ng-show="createForm.session_from.$invalid && !createForm.session_from.$pristine" class="help-block">Timeslot is required</span>
+							<span data-ng-show="createForm.session_from.$datetimelocal" class="help-block">Timeslot must be a valid date</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="session_to" class="col-sm-2 control-label">To</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="session_to" id="session_to" data-ng-model="session.session_to" />
+							<input type="text" class="form-control" name="session_to" id="session_to" data-ng-model="session.session_to" placeholder="yyyy-MM-dd HH:mm" required />
 							<span data-ng-show="createForm.session_to.$invalid && !createForm.session_to.$pristine" class="help-block">Timeslot is required</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-primary" data-ng-disabled="createForm.$invalid">Submit</button>
-							<button class="btn btn-default" data-ng-click="cancel()">Cancel</button>
+							<button type="button" class="btn btn-default" data-ng-click="cancel()">Cancel</button>
 						</div>
 					</div>
 				</form>

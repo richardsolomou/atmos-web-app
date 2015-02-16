@@ -12,7 +12,8 @@ angular.module('atmos')
 			'SignInService',
 			'RFIDService',
 			'Attendance',
-			function ($rootScope, $location, $cookies, $route, GooglePlus, SignInService, RFIDService, Attendance) {
+			'messageCenterService',
+			function ($rootScope, $location, $cookies, $route, GooglePlus, SignInService, RFIDService, Attendance, messageCenterService) {
 				$rootScope.currentPage = 'home';
 
 				$rootScope.checkLoggedIn = function () {
@@ -30,23 +31,23 @@ angular.module('atmos')
 
 				$rootScope.$on('RFIDRouter', function (e, data) {
 					if (data && data.uid) {
-						$location.path('/attendance');
-
 						RFIDService.init(data.uid).then(function () {
 							var student_id = RFIDService.getStudentID();
 							var session_id = RFIDService.getSessionID();
 							var attendance_recorded = RFIDService.getAttendanceRecorded();
 							Attendance.create({ student_id: student_id, session_id: session_id, attendance_recorded: attendance_recorded }, function (data) {
-								console.dir(data);
+								$location.path('/attendance');
+								messageCenterService.add('success', 'Successfully created attendance record.');
 							}, function (err) {
-								console.dir(err);
+								$location.path('/attendance');
+								messageCenterService.add('danger', err);
 							});
 						}, function (err) {
-							console.dir(err);
 							if (err.err_type === 'student_card_not_found') {
-								// do something
+								$location.path('/students/student_card');
 							} else if (err.err_type === 'session_not_found') {
-								// do something
+								$location.path('/attendance');
+								messageCenterService.add('danger', err);
 							}
 						});
 

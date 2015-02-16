@@ -4,6 +4,7 @@ angular.module('atmos')
 	.factory(
 		'RFIDService',
 		function ($http, $q, $filter, Student, Unit) {
+			var student_card;
 			var student_id;
 			var session_id;
 			var attendance_recorded;
@@ -12,15 +13,16 @@ angular.module('atmos')
 
 			function init(uid) {
 				var deferred = $q.defer();
+				student_card = uid;
 
 				async.series(
 					[
 						function (done) {
-							Student.findByCard({ student_card: uid }, function (data) {
+							Student.findByCard({ student_card: student_card }, function (data) {
 								student_id = data.data.student_id;
 								return done();
 							}, function (err) {
-								err = new Error('Student card not in database.');
+								err = new Error('Student card "' + student_card + '" not in database.');
 								err.err_type = 'student_card_not_found';
 								return done(err);
 							});
@@ -40,15 +42,15 @@ angular.module('atmos')
 							});
 						},
 						function (done) {
+							attendance_recorded = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm');
 							angular.forEach(sessions, function (session, key) {
-								attendance_recorded = $filter('date')(attendance_recorded, 'yyyy-MM-dd HH:mm');
 								session.session_from = $filter('date')(session.session_from, 'yyyy-MM-dd HH:mm');
 								session.session_to = $filter('date')(session.session_to, 'yyyy-MM-dd HH:mm');
 								if (attendance_recorded >= session.session_from && attendance_recorded <= session.session_to) {
 									session_id = session.session_id;
 									return done();
 								} else if (sessions.length-1 === key) {
-									var err = new Error('Session not found.');
+									var err = new Error('Session between "' + session.session_from + '" and "' + session.session_to + '" not found.');
 									err.err_type = 'session_not_found';
 									return done(err);
 								}
@@ -67,6 +69,10 @@ angular.module('atmos')
 				return deferred.promise;
 			}
 
+			function getStudentCard() {
+				return student_card;
+			}
+
 			function getStudentID() {
 				return student_id;
 			}
@@ -81,6 +87,7 @@ angular.module('atmos')
 
 			return {
 				init: init,
+				getStudentCard: getStudentCard,
 				getStudentID: getStudentID,
 				getSessionID: getSessionID,
 				getAttendanceRecorded: getAttendanceRecorded

@@ -11,7 +11,7 @@
 		<table class="table table-striped table-hover" data-ng-if="lecturers.length" datatable>
 			<thead>
 				<tr>
-					<th style="width: 32px;">ID</th>
+					<th class="resize-hide" style="width: 32px;">ID</th>
 					<th>Name</th>
 					<th>E-mail</th>
 					<th style="width: 69px;">Actions</th>
@@ -19,7 +19,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="lecturer in lecturers">
-					<td>{{ lecturer.lecturer_id }}</td>
+					<td class="resize-hide">{{ lecturer.lecturer_id }}</td>
 					<td>{{ lecturer.lecturer_name }}</td>
 					<td>{{ lecturer.lecturer_email }}</td>
 					<td class="text-center"><button data-ng-click="update(lecturer.lecturer_id)" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></button></td>
